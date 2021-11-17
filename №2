@@ -1,0 +1,36 @@
+create table if not exists client ( kod_client int generated always as identity primary key,
+                      last_name varchar(44),
+                      fore_name varchar(44),
+                      fist_name varchar(44),
+                      phone_number varchar(15),
+                      address varchar(150) default null);
+create table if not exists seller ( kod_seller int generated always as identity primary key,
+					  last_name varchar(44),
+                      fore_name varchar(44),
+                      fist_name varchar(44),
+                      sex varchar(10),
+                      phone_seller varchar(15),
+                      address varchar(150) default null);
+create table if not exists book ( id_book int generated always as identity primary key,
+				   name_book varchar(44),
+                   author varchar(44),
+                   vidavnitstvo varchar(44),
+                   year_book varchar(44),
+                   janr int,
+                   price float,
+                   additionally varchar (99));
+create table if not exists sales(kod_sales int generated always as identity primary key,
+                   kod_prodashy int,
+				   kod_client int,			 
+                   kod_seller int,
+                   id_book int,
+                   date_of_saled date,
+                   amount int,
+                   purchase_price float);
+create table if not exists janr (kod_janr int generated always as identity primary key,
+										 name_janr varchar(44));                          
+alter table sales add foreign key (kod_client) references client(kod_client) on update cascade on delete cascade;	
+alter table sales add foreign key(kod_seller) references seller(kod_seller) on update cascade on delete cascade;
+alter table sales add foreign key(id_book) references book(id_book) on update cascade on delete cascade;
+alter table book add foreign key(janr) references janr(kod_janr) on update cascade on delete cascade;                     
+select * from book;
